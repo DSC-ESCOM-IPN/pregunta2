@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000"
+    tools:context=".RouleteActivity">
+
+    <ImageView
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:src="@drawable/grupo_3308"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.041"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/fondo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/grupo_3312"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/circulo1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginBottom="4dp"
+        android:src="@drawable/elipse_107"
+        android:translationZ="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/registerButton"
+        app:layout_constraintStart_toStartOf="@+id/registerButton" />
+
+    <ImageView
+        android:id="@+id/circulo2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginBottom="4dp"
+        android:src="@drawable/elipse_107"
+        android:translationZ="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/registerButton"
+        app:layout_constraintStart_toEndOf="@+id/circulo1" />
+    <ImageView
+        android:id="@+id/circulo3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginBottom="4dp"
+        android:src="@drawable/elipse_107"
+        android:translationZ="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/registerButton"
+        app:layout_constraintStart_toEndOf="@+id/circulo2" />
+
+
+
+    <ImageView
+        android:id="@+id/circulo1a"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginBottom="4dp"
+        android:src="@drawable/elipse_107"
+        android:translationZ="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/profileButton"
+        app:layout_constraintStart_toStartOf="@+id/profileButton" />
+
+    <ImageView
+        android:id="@+id/circulo2a"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginBottom="4dp"
+        android:src="@drawable/elipse_107"
+        android:translationZ="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/profileButton"
+        app:layout_constraintStart_toEndOf="@+id/circulo1a" />
+    <ImageView
+        android:id="@+id/circulo3a"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginBottom="4dp"
+        android:src="@drawable/elipse_107"
+        android:translationZ="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/profileButton"
+        app:layout_constraintStart_toEndOf="@+id/circulo2a" />
+
+
+
+    <Button
+        android:id="@+id/registerButton"
+        android:layout_width="173dp"
+        android:layout_height="103dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/bg_btnr"
+        android:gravity="center_horizontal"
+        android:text="Player one"
+        android:textColor="#FFF"
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/backButton"
+        android:translationZ="2dp"/>
+
+    <Button
+        android:id="@+id/profileButton"
+        android:layout_width="155dp"
+        android:layout_height="99dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/bg_btnr2"
+        android:gravity="center_horizontal"
+        android:text="player two"
+        android:textColor="#FFF"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/backButton" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="340dp"
+        android:layout_height="340dp"
+        android:layout_marginBottom="80dp"
+        android:src="@drawable/elipse_122"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/circulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/elipse_107"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+    <ImageView
+        android:id="@+id/flecha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="102dp"
+        android:layout_marginLeft="102dp"
+        android:layout_marginEnd="104dp"
+        android:layout_marginRight="104dp"
+        android:layout_marginBottom="248dp"
+        android:src="@drawable/poligono_1"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/imageView" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
