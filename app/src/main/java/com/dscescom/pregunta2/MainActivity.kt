@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         val currentUser = auth.currentUser
         if(currentUser != null){
             val menuIntent = Intent(this, MenuActivity::class.java).apply {
-                putExtra("name", currentUser?.email ?: "")
+                putExtra("name", currentUser.email)
             }
             startActivity(menuIntent)
         }
