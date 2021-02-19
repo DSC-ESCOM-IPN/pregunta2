@@ -133,7 +133,7 @@
         app:layout_constraintTop_toBottomOf="@+id/backButton" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imgRoulete"
         android:layout_width="340dp"
         android:layout_height="340dp"
         android:layout_marginBottom="80dp"
@@ -147,10 +147,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/elipse_107"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="@+id/imageView" />
+        app:layout_constraintBottom_toBottomOf="@+id/imgRoulete"
+        app:layout_constraintEnd_toEndOf="@+id/imgRoulete"
+        app:layout_constraintStart_toStartOf="@+id/imgRoulete"
+        app:layout_constraintTop_toTopOf="@+id/imgRoulete" />
 
     <ImageView
         android:id="@+id/flecha"
@@ -162,10 +162,10 @@
         android:layout_marginRight="104dp"
         android:layout_marginBottom="248dp"
         android:src="@drawable/poligono_1"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintBottom_toBottomOf="@+id/imgRoulete"
+        app:layout_constraintEnd_toEndOf="@+id/imgRoulete"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/imageView" />
+        app:layout_constraintStart_toStartOf="@+id/imgRoulete" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

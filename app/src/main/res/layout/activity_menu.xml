@@ -23,7 +23,7 @@
         app:layout_constraintTop_toBottomOf="@id/playButton" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imgRoulete"
         android:layout_width="380dp"
         android:layout_height="340dp"
         android:src="@drawable/grupo_3310"
@@ -43,7 +43,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.185"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/imgRoulete" />
 
     <TextView
         android:id="@+id/textView2"
