@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setup(){
-        playButton.setOnClickListener {
+        registerButton.setOnClickListener {
             val registerIntent = Intent(this, RegisterActivity::class.java)
             startActivity(registerIntent)
         }
