@@ -31,6 +31,12 @@ class MenuActivity : AppCompatActivity() {
         logoutButton.setOnClickListener {
             signOut()
         }
+
+        playButton.setOnClickListener{
+            val rouleteIntent = Intent(this, RouleteActivity::class.java)
+            startActivity(rouleteIntent)
+        }
+
     }
 
     private fun signOut() {
