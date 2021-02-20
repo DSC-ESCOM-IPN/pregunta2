@@ -86,7 +86,7 @@ class RouleteActivity : AppCompatActivity() , Animation.AnimationListener {
     }
 }
 
-data class Question(
+public data class Question(
     var categoria: String? = null,
     var pregunta: String ? = null,
     var respuestas: MutableList<Answers>? = mutableListOf<Answers>()
