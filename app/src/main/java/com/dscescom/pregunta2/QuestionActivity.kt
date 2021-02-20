@@ -3,6 +3,7 @@ package com.dscescom.pregunta2
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -14,36 +15,32 @@ import java.io.Serializable
 class QuestionActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
+    //Map answer and isCorrect
+    private lateinit var mapAnswers:MutableMap<String, Boolean>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pregunta)
-
         val obj = intent.extras?.getSerializable("question") as Question
-
-        auth = Firebase.auth
-        val uid = auth.currentUser!!.uid
-        setup(obj, uid)
+        mapAnswers = mapAnswerIsCorrect(obj.respuestas)
+        setup(obj)
     }
 
-    private fun setup(obj: Question, uid: String) {
+    private fun setup(obj: Question) {
         val txtQuestion = findViewById<TextView>(R.id.txtQuestion)
-        txtQuestion.setText(obj.pregunta.toString()).toString()
         val btnAns1 = findViewById<Button>(R.id.btnAns1)
-        btnAns1.setText(obj.respuestas?.get(0)?.answerText.toString()).toString()
         val btnAns2 = findViewById<Button>(R.id.btnAns2)
-        btnAns2.setText(obj.respuestas?.get(1)?.answerText.toString()).toString()
         val btnAns3 = findViewById<Button>(R.id.btnAns3)
-        btnAns3.setText(obj.respuestas?.get(2)?.answerText.toString()).toString()
-        val mapAnswers = mapAnswerIsCorrect(obj.respuestas)
-        btnAns1.setOnClickListener {
-            findUser(mapAnswers[btnAns1.text].toString().toBoolean(), uid)
-        }
-        btnAns2.setOnClickListener {
-            findUser(mapAnswers[btnAns2.text].toString().toBoolean(), uid)
+        var iterator = 0
 
+        txtQuestion.setText(obj.pregunta.toString()).toString()
+        //setText in buttons
+        listOf(btnAns1, btnAns2, btnAns3).forEach {
+            it.text = obj.respuestas?.get(iterator)?.answerText.toString()
+            iterator += 1
         }
-        btnAns3.setOnClickListener {
-            findUser(mapAnswers[btnAns3.text].toString().toBoolean(), uid)
+        //add EventListener
+        listOf(btnAns1, btnAns2, btnAns3).forEach {
+            it.setOnClickListener(::handleButtonClick)
         }
     }
 
@@ -55,7 +52,9 @@ class QuestionActivity : AppCompatActivity() {
         return mapAnswers
     }
 
-    private fun findUser(isCorrect:Boolean, uid:String){
+    private fun findUser(isCorrect:Boolean){
+        auth = Firebase.auth
+        val uid = auth.currentUser!!.uid
         val db = Firebase.firestore
         if(isCorrect){
             db.collection("scores")
@@ -91,6 +90,12 @@ class QuestionActivity : AppCompatActivity() {
             .set(score)
             .addOnSuccessListener { Log.d("TAG", "Registro actualizado con exito") }
             .addOnFailureListener { e -> Log.w("TAG", "Error al escribir", e) }
+    }
+
+    private fun handleButtonClick(view: View) {
+        with (view as Button) {
+            findUser(mapAnswers[text].toString().toBoolean())
+        }
     }
 }
 
