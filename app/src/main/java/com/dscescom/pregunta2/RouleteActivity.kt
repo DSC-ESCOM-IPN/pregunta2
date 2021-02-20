@@ -1,26 +1,25 @@
 package com.dscescom.pregunta2
 
-import android.animation.ValueAnimator
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.DecelerateInterpolator
-import android.view.animation.LinearInterpolator
 import android.view.animation.RotateAnimation
 import android.widget.Toast
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_menu.*
 import kotlinx.android.synthetic.main.activity_ruleta.*
+import java.util.*
 import kotlin.math.floor
 
 class RouleteActivity : AppCompatActivity() , Animation.AnimationListener {
     private lateinit var roulette: View
+    private lateinit var questions: MutableSet<Question>
     private var degrees: Long = 0L
-    private val categories: List<String> = listOf("Movies","Music","Science","Sports","Educational")
+    private val categories: List<String> = listOf("Movies","Educational","Music","Science","Sports")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,16 +37,23 @@ class RouleteActivity : AppCompatActivity() , Animation.AnimationListener {
         }
 
         val db = Firebase.firestore
-        val list: MutableList<String> = ArrayList()
 
         db.collection("preguntas")
             .get()
             .addOnSuccessListener { result ->
-                for(document in result) {
-                    //Toast.makeText(this,  "${document.data}", Toast.LENGTH_SHORT).show()
-                    list.add("${document.data}")
+                for (snapDocument in result) {
+                    val document = snapDocument.data.toMap()
+                    var newQuestion = Question(document["categoria"].toString(),document["pregunta"].toString())
+                    Log.d("Firestore_debug: ", document.toString())
+                    val ans: List<Any> = document["respuestas"] as List<Any>
+                    Log.d("Firestore_debug: ", ans.toString())
+                    /*for(answer in ans)
+                        newQuestion.respuestas?.add(Answers(answer["answerText"] as String?,
+                            answer["isCorrect"] as Boolean?
+                        ))
+                    Log.d("Firestore_debug: ", document.toString())*/
                 }
-            }.addOnFailureListener{ exception -> Toast.makeText(this,  "${exception}", Toast.LENGTH_SHORT).show() }
+            }.addOnFailureListener{ exception -> Toast.makeText(this,  exception.toString(), Toast.LENGTH_SHORT).show() }
     }
 
     private fun onClickRoulette(){
@@ -74,3 +80,16 @@ class RouleteActivity : AppCompatActivity() , Animation.AnimationListener {
     override fun onAnimationRepeat(animation: Animation) {
     }
 }
+
+data class Question(
+    var categoria: String? = null,
+    var pregunta: String ? = null
+){
+    var respuestas: MutableList<Answers>? = null
+}
+
+data class Answers(
+    var answerText: String? = null,
+    @field:JvmField
+    var isCorrect: Boolean? = null
+)

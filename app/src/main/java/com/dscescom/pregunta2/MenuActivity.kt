@@ -20,8 +20,8 @@ class MenuActivity : AppCompatActivity() {
 
         auth = Firebase.auth
 
-        val bundle = intent.extras
-        val username = bundle?.getString("name")
+        //val bundle = intent.extras
+        val username = auth.currentUser?.email
         setup(username ?: "")
     }
 
