@@ -12,12 +12,13 @@ import android.widget.Toast
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_ruleta.*
+import java.io.Serializable
 import java.util.*
 import kotlin.math.floor
 
 class RouleteActivity : AppCompatActivity() , Animation.AnimationListener {
     private lateinit var roulette: View
-    private lateinit var questions: MutableSet<Question>
+    private var questions: MutableList<Question> = mutableListOf<Question>()
     private var degrees: Long = 0L
     private val categories: List<String> = listOf("Movies","Educational","Music","Science","Sports")
 
@@ -44,14 +45,12 @@ class RouleteActivity : AppCompatActivity() , Animation.AnimationListener {
                 for (snapDocument in result) {
                     val document = snapDocument.data.toMap()
                     var newQuestion = Question(document["categoria"].toString(),document["pregunta"].toString())
-                    Log.d("Firestore_debug: ", document.toString())
-                    val ans: List<Any> = document["respuestas"] as List<Any>
-                    Log.d("Firestore_debug: ", ans.toString())
-                    /*for(answer in ans)
+                    for(answer in document["respuestas"] as List<Map<Any,Any>>)
                         newQuestion.respuestas?.add(Answers(answer["answerText"] as String?,
                             answer["isCorrect"] as Boolean?
                         ))
-                    Log.d("Firestore_debug: ", document.toString())*/
+                    this.questions.add((newQuestion))
+                    //Log.d("Firestore_debug: ", document.toString())
                 }
             }.addOnFailureListener{ exception -> Toast.makeText(this,  exception.toString(), Toast.LENGTH_SHORT).show() }
     }
@@ -73,8 +72,14 @@ class RouleteActivity : AppCompatActivity() , Animation.AnimationListener {
 
     override fun onAnimationEnd(animation: Animation) {
         val index: Int = (4.0 - floor(degrees.toDouble()/(72.0))).toInt()
-        Toast.makeText(this, this.categories[index], Toast.LENGTH_SHORT).show()
-
+        val filteredQuestions = this.questions.filter { question: Question ->  question.categoria == this.categories[index]}
+        val indexQuestion = (filteredQuestions.indices).random()
+            val questionIntent = Intent(this, QuestionActivity::class.java).apply {
+            putExtra("question", filteredQuestions[indexQuestion])
+        }
+        Log.d("Firestore_debug: ", filteredQuestions[indexQuestion].toString().toString())
+        startActivity(questionIntent)
+        //Toast.makeText(this, .pregunta, Toast.LENGTH_SHORT).show()
     }
 
     override fun onAnimationRepeat(animation: Animation) {
@@ -83,13 +88,12 @@ class RouleteActivity : AppCompatActivity() , Animation.AnimationListener {
 
 data class Question(
     var categoria: String? = null,
-    var pregunta: String ? = null
-){
-    var respuestas: MutableList<Answers>? = null
-}
+    var pregunta: String ? = null,
+    var respuestas: MutableList<Answers>? = mutableListOf<Answers>()
+) : Serializable
 
 data class Answers(
     var answerText: String? = null,
     @field:JvmField
     var isCorrect: Boolean? = null
-)
+) : Serializable
