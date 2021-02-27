@@ -101,3 +101,11 @@ data class Match(
     var challenger_score: Int = 0,
     var opponent_score: Int = 0
 ) : Serializable
+
+data class MatchDoc(
+    val challenger_uid: String? = null,
+    val opponent_uid: String? = null,
+    val turn_uid: String? = null,
+    var challenger_score: Int = 0,
+    var opponent_score: Int = 0
+) : Serializable
