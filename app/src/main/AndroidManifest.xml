@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".MatchesActivity"></activity>
         <activity android:name=".QuestionActivity" />
         <activity android:name=".RouleteActivity" />
         <activity android:name=".ProfileActivity" />

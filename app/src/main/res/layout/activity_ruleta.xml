@@ -29,80 +29,73 @@
 
     <ImageView
         android:id="@+id/circulo1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
-        android:layout_marginLeft="18dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
         android:layout_marginBottom="4dp"
-        android:src="@drawable/elipse_107"
+        android:src="@drawable/circulo_blanco"
         android:translationZ="5dp"
-        app:layout_constraintBottom_toBottomOf="@+id/registerButton"
-        app:layout_constraintStart_toStartOf="@+id/registerButton" />
+        app:layout_constraintBottom_toBottomOf="@+id/player1Button"
+        app:layout_constraintStart_toStartOf="@+id/player1Button"/>
 
     <ImageView
         android:id="@+id/circulo2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="0dp"
-        android:layout_marginLeft="0dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginBottom="4dp"
-        android:src="@drawable/elipse_107"
+        android:src="@drawable/circulo_blanco"
         android:translationZ="5dp"
-        app:layout_constraintBottom_toBottomOf="@+id/registerButton"
-        app:layout_constraintStart_toEndOf="@+id/circulo1" />
+        app:layout_constraintBottom_toBottomOf="@+id/player1Button"
+        app:layout_constraintStart_toEndOf="@+id/circulo1"/>
+
     <ImageView
         android:id="@+id/circulo3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="0dp"
-        android:layout_marginLeft="0dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginBottom="4dp"
-        android:src="@drawable/elipse_107"
+        android:src="@drawable/circulo_blanco"
         android:translationZ="5dp"
-        app:layout_constraintBottom_toBottomOf="@+id/registerButton"
-        app:layout_constraintStart_toEndOf="@+id/circulo2" />
-
+        app:layout_constraintBottom_toBottomOf="@+id/player1Button"
+        app:layout_constraintStart_toEndOf="@+id/circulo2"/>
 
 
     <ImageView
         android:id="@+id/circulo1a"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
-        android:layout_marginLeft="18dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
         android:layout_marginBottom="4dp"
-        android:src="@drawable/elipse_107"
+        android:src="@drawable/circulo_blanco"
         android:translationZ="5dp"
-        app:layout_constraintBottom_toBottomOf="@+id/profileButton"
-        app:layout_constraintStart_toStartOf="@+id/profileButton" />
+        app:layout_constraintBottom_toBottomOf="@+id/player2Button"
+        app:layout_constraintStart_toStartOf="@+id/player2Button"/>
 
     <ImageView
         android:id="@+id/circulo2a"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="0dp"
-        android:layout_marginLeft="0dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginBottom="4dp"
-        android:src="@drawable/elipse_107"
+        android:src="@drawable/circulo_blanco"
         android:translationZ="5dp"
-        app:layout_constraintBottom_toBottomOf="@+id/profileButton"
-        app:layout_constraintStart_toEndOf="@+id/circulo1a" />
+        app:layout_constraintBottom_toBottomOf="@+id/player2Button"
+        app:layout_constraintStart_toEndOf="@+id/circulo1a"/>
+
     <ImageView
         android:id="@+id/circulo3a"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="0dp"
-        android:layout_marginLeft="0dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginBottom="4dp"
-        android:src="@drawable/elipse_107"
+        android:src="@drawable/circulo_blanco"
         android:translationZ="5dp"
-        app:layout_constraintBottom_toBottomOf="@+id/profileButton"
-        app:layout_constraintStart_toEndOf="@+id/circulo2a" />
+        app:layout_constraintBottom_toBottomOf="@+id/player2Button"
+        app:layout_constraintStart_toEndOf="@+id/circulo2a"/>
 
 
 
     <Button
-        android:id="@+id/registerButton"
+        android:id="@+id/player1Button"
         android:layout_width="173dp"
         android:layout_height="103dp"
         android:layout_marginStart="16dp"
@@ -118,7 +111,7 @@
         android:translationZ="2dp"/>
 
     <Button
-        android:id="@+id/profileButton"
+        android:id="@+id/player2Button"
         android:layout_width="155dp"
         android:layout_height="99dp"
         android:layout_marginTop="28dp"

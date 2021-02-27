@@ -39,7 +39,7 @@ class MenuActivity : AppCompatActivity() {
         }
 
         playButton.setOnClickListener {
-            val rouletteIntent = Intent(this, RouleteActivity::class.java)
+            val rouletteIntent = Intent(this, MatchesActivity::class.java)
             startActivity(rouletteIntent)
         }
 
