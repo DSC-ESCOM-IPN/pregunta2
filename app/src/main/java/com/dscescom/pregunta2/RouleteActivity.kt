@@ -142,6 +142,15 @@ class RouleteActivity : AppCompatActivity(), Animation.AnimationListener {
     }
 
     private fun onClickRoulette() {
+        if (match.opponent_score == 9 || match.challenger_score == 9) {
+            Toast.makeText(
+                this,
+                "Esta partida ha terminado :D",
+                Toast.LENGTH_SHORT
+            ).show()
+            return
+        }
+
         if (auth.currentUser!!.uid == match.turn_uid) {
             val rand: Long = ((0..359).random() + 3600).toLong()
             val rotate = RotateAnimation(
