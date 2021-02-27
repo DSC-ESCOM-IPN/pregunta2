@@ -1,18 +1,25 @@
 package com.dscescom.pregunta2
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
+import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.activity_login.*
+import java.io.Serializable
 
 class SigningActivity : AppCompatActivity() {
 
@@ -26,9 +33,9 @@ class SigningActivity : AppCompatActivity() {
 
         // Configure Google Sign In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
-            .requestEmail()
-            .build()
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build()
 
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
@@ -36,8 +43,9 @@ class SigningActivity : AppCompatActivity() {
         setup()
     }
 
-    private fun setup(){
-        backButton2.setOnClickListener(){
+    private fun setup() {
+
+        backButton2.setOnClickListener() {
             val backIntent = Intent(this, MainActivity::class.java)
             startActivity(backIntent)
         }
@@ -52,10 +60,10 @@ class SigningActivity : AppCompatActivity() {
         }
     }
 
-    private fun validateData(email:String, password:String){
-        if (email.isNotEmpty() && password.isNotEmpty()){
+    private fun validateData(email: String, password: String) {
+        if (email.isNotEmpty() && password.isNotEmpty()) {
             login(email, password)
-        }else{
+        } else {
             Toast.makeText(this, "Alguno de los campos esta vacio.", Toast.LENGTH_SHORT).show()
         }
     }
@@ -69,7 +77,7 @@ class SigningActivity : AppCompatActivity() {
                 val account = task.getResult(ApiException::class.java)!!
                 firebaseAuthWithGoogle(account.idToken!!)
             } catch (e: ApiException) {
-                Toast.makeText(this, "Ocurrio un error intentalo mas tarde.", Toast.LENGTH_SHORT).show()
+                err()
             }
         }
     }
@@ -77,34 +85,61 @@ class SigningActivity : AppCompatActivity() {
     private fun firebaseAuthWithGoogle(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         auth.signInWithCredential(credential)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    val user = auth.currentUser
-                    val menuIntent = Intent(this, MenuActivity::class.java).apply {
-                        putExtra("name", user?.email ?: "")
-                    }
-                    startActivity(menuIntent)
-                } else {
-                    Toast.makeText(this, "Ocurrio un error intentalo mas tarde.", Toast.LENGTH_SHORT).show()
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        val user = auth.currentUser
+                        if (user != null)
+                            validateUserRegistration(user)
+                        else
+                            err()
+                    } else
+                        err()
                 }
-            }
     }
 
-    private fun login(email:String, password:String){
+    private fun login(email: String, password: String) {
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
             if (task.isSuccessful) {
                 val user = auth.currentUser
-                val menuIntent = Intent(this, MenuActivity::class.java).apply {
-                    putExtra("name", user?.email ?: "")
-                }
-                startActivity(menuIntent)
+                if (user != null)
+                    validateUserRegistration(user)
+                else
+                    err()
             } else {
                 Toast.makeText(baseContext, "Credenciales incorrectas.", Toast.LENGTH_SHORT).show()
             }
-            if (!task.isSuccessful) {
-                Toast.makeText(this, "Ocurrio un error intentalo mas tarde.", Toast.LENGTH_SHORT).show()
-            }
         }
+    }
+
+    //Register user account in Firestore
+    private fun validateUserRegistration(user: FirebaseUser) {
+        val db = Firebase.firestore
+        val userRef = db.collection("users").document(user.uid)
+        var userData = User(user.displayName, user.email, 0)
+
+        userRef.get().addOnSuccessListener { doc ->
+            if (!doc.exists()) {
+                userRef.set(userData)
+                        .addOnSuccessListener {
+                            Toast.makeText(this, "Usuario Registrado", Toast.LENGTH_SHORT).show()
+                        }
+                        .addOnFailureListener {
+                            err()
+                        }
+            }else{
+                userData = doc.toObject<User>()!!
+            }
+            val menuIntent = Intent(this, MenuActivity::class.java).apply {
+                putExtra("user", userData)
+            }
+            startActivity(menuIntent)
+        }
+
+    }
+
+    //Toast Error function
+    private fun err() {
+        Toast.makeText(this, "Ocurrio un error intentalo mas tarde.", Toast.LENGTH_SHORT).show()
     }
 
     companion object {

@@ -4,10 +4,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.*
+import android.widget.Button
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.io.Serializable
@@ -15,8 +18,9 @@ import java.io.Serializable
 class QuestionActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
+
     //Map answer and isCorrect
-    private lateinit var mapAnswers:MutableMap<String, Boolean>
+    private lateinit var mapAnswers: MutableMap<String, Boolean>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pregunta)
@@ -45,61 +49,40 @@ class QuestionActivity : AppCompatActivity() {
     }
 
     private fun mapAnswerIsCorrect(obj: MutableList<Answers>?): MutableMap<String, Boolean> {
-        val mapAnswers:MutableMap<String, Boolean> = mutableMapOf()
-        for((answer, isCorrect) in obj!!) {
+        val mapAnswers: MutableMap<String, Boolean> = mutableMapOf()
+        for ((answer, isCorrect) in obj!!) {
             mapAnswers[answer!!.toString()] = isCorrect!!.toString().toBoolean()
         }
         return mapAnswers
     }
 
-    private fun findUser(isCorrect:Boolean){
+    private fun findUser(isCorrect: Boolean) {
         auth = Firebase.auth
         val uid = auth.currentUser!!.uid
-        val db = Firebase.firestore
-        if(isCorrect){
-            db.collection("scores")
-                .whereEqualTo("uid", uid)
-                .get()
-                .addOnSuccessListener { result ->
-                    var score = 1
-                    if(result.size()!=0){
-                        for (snapDocument in result) {
-                            val document = snapDocument.data.toMap()
-                            score = document["score"].toString().toInt() + 1
-                            val userScore = Score(uid,score)
-                            updateScore(userScore, snapDocument.id)
-                        }
-                    }else{
-                        val userScore = Score(uid,score)
-                        updateScore(userScore, hashCode().toString())
-                    }
-                    val rouleteIntent = Intent(this, RouleteActivity::class.java)
-                    Toast.makeText(this,  "Correcto :D", Toast.LENGTH_SHORT).show()
-                    startActivity(rouleteIntent)
-                }.addOnFailureListener{ exception -> Toast.makeText(this,  exception.toString(), Toast.LENGTH_SHORT).show() }
-        }else{
-            val rouleteIntent = Intent(this, RouleteActivity::class.java)
-            Toast.makeText(this,  "Error :c", Toast.LENGTH_SHORT).show()
-            startActivity(rouleteIntent)
-        }
+        if (isCorrect) {
+            updateScore(uid)
+            Toast.makeText(this, "Correcto! :)", Toast.LENGTH_SHORT).show()
+        } else
+            Toast.makeText(this, "Error :c", Toast.LENGTH_SHORT).show()
+        val rouletteIntent = Intent(this, RouleteActivity::class.java)
+        startActivity(rouletteIntent)
     }
 
-    private fun updateScore(score: Score, idDocument: String){
+    private fun updateScore(uid: String) {
         val db = Firebase.firestore
-        db.collection("scores").document(idDocument)
-            .set(score)
-            .addOnSuccessListener { Log.d("TAG", "Registro actualizado con exito") }
-            .addOnFailureListener { e -> Log.w("TAG", "Error al escribir", e) }
+        db.collection("users").document(uid)
+            .update("score", FieldValue.increment(1))
+            .addOnSuccessListener { Log.d("TAG", "Registrado correctamente") }
+            .addOnFailureListener { e -> Log.w("TAG", "Ocurrio un error", e) }
     }
 
     private fun handleButtonClick(view: View) {
-        with (view as Button) {
+        with(view as Button) {
             findUser(mapAnswers[text].toString().toBoolean())
         }
     }
 }
 
 public data class Score(
-    var uid: String? = null,
-    var score: Number ? = null
+    var score: Number? = null
 ) : Serializable

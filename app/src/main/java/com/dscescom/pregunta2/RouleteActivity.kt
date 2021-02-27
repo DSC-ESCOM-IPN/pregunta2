@@ -77,7 +77,7 @@ class RouleteActivity : AppCompatActivity() , Animation.AnimationListener {
             val questionIntent = Intent(this, QuestionActivity::class.java).apply {
             putExtra("question", filteredQuestions[indexQuestion])
         }
-        Log.d("Firestore_debug: ", filteredQuestions[indexQuestion].toString().toString())
+        Log.d("Firestore_debug: ", filteredQuestions[indexQuestion].toString())
         startActivity(questionIntent)
         //Toast.makeText(this, .pregunta, Toast.LENGTH_SHORT).show()
     }
