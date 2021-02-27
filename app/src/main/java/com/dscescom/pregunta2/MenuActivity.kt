@@ -17,6 +17,7 @@ class MenuActivity : AppCompatActivity() {
 
     //declare_authentication
     private lateinit var auth: FirebaseAuth
+    private lateinit var currentUser: User
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,17 +25,15 @@ class MenuActivity : AppCompatActivity() {
 
         auth = Firebase.auth
 
-        val obj = intent.extras?.getSerializable("user") as User
-        val username = obj.nombre ?: obj.correo
-        //val username = ""
-        setup(username ?: "")
+        if(intent.hasExtra("user")){
+            currentUser = intent.extras?.getSerializable("user") as User
+        }
+
+        setup()
     }
 
-    private fun setup(username: String) {
+    private fun setup() {
 
-        Toast.makeText(this, "Hola $username", Toast.LENGTH_SHORT).show()
-
-        //Toast.makeText(this, "Pref ${userData.correo}", Toast.LENGTH_SHORT).show()
         logoutButton.setOnClickListener {
             signOut()
         }
@@ -42,6 +41,16 @@ class MenuActivity : AppCompatActivity() {
         playButton.setOnClickListener {
             val rouletteIntent = Intent(this, RouleteActivity::class.java)
             startActivity(rouletteIntent)
+        }
+
+        contactsButton.setOnClickListener {
+            val contactsIntent = Intent(this, ContactsActivity::class.java)
+            startActivity(contactsIntent)
+        }
+
+        profileButton.setOnClickListener {
+            val profileIntent = Intent(this, ProfileActivity::class.java)
+            startActivity(profileIntent)
         }
 
     }

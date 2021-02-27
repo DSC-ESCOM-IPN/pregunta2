@@ -31,26 +31,28 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/passwordEditText"
+        android:id="@+id/emailText"
         android:layout_width="350dp"
         android:layout_height="70dp"
         android:layout_marginTop="24dp"
         android:background="@drawable/bg_txt"
-        android:gravity="center_vertical"
-        android:text="  \@test"
+        android:editable="false"
+        android:gravity="center|center_vertical"
+        android:text="  "
         android:textColor="#FFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/nameText" />
 
     <EditText
-        android:id="@+id/emailEditText"
+        android:id="@+id/nameText"
         android:layout_width="350dp"
         android:layout_height="70dp"
         android:layout_marginTop="48dp"
         android:background="@drawable/bg_txt"
-        android:gravity="center_vertical"
-        android:text="   Person Name"
+        android:editable="false"
+        android:gravity="center|center_vertical"
+        android:text="   "
         android:textColor="#FFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
@@ -58,17 +60,17 @@
         app:layout_constraintTop_toBottomOf="@+id/improfile" />
 
     <EditText
-        android:id="@+id/passwordCEditText"
+        android:id="@+id/scoreText"
         android:layout_width="350dp"
         android:layout_height="70dp"
         android:layout_marginTop="24dp"
         android:background="@drawable/bg_txt"
-        android:gravity="center_vertical"
-        android:text="  78623 pts."
+        android:editable="false"
+        android:gravity="center|center_vertical"
         android:textColor="#FFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/emailText" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

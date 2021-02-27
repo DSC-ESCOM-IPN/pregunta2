@@ -25,7 +25,6 @@ class MainActivity : AppCompatActivity() {
 
     //declare_authentication
     private lateinit var auth: FirebaseAuth
-    private lateinit var user: User
 
     private lateinit var googleSignInClient: GoogleSignInClient
     override fun onCreate(savedInstanceState: Bundle?) {
