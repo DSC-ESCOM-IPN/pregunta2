@@ -60,3 +60,5 @@ En este Study Jam se implementó la lógica por turnos de la aplicación, crear 
 
 
 [Android Study Jam: "Pregunta2 App: Final App"](https://www.youtube.com/watch?v=8vxnIUBQzZM)
+
+[Redes Sociales](https://linktr.ee/DSC_ESCOM_IPN)
